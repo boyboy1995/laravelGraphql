@@ -14,5 +14,6 @@ type Article {
 type ArticleComment {
   id: ID!
   content: String!
+  author: User! @belongsTo(relation: "user")
   article: Article! @belongsTo
 }
