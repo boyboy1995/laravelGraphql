@@ -81,14 +81,6 @@ input UpdatePassword {
 }
 
 type Mutation {
-
-    # Middleware in the first tutorial
-
-    #   createArticle(title: String!, content: String!): Article
-    # @field(resolver: "ArticleMutator@create")
-    # @middleware(checks: ["auth:api"])
-
-
     login(input: LoginInput @spread): AuthPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Login@resolve")
     refreshToken(input: RefreshTokenInput @spread): RefreshTokenPayload! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\RefreshToken@resolve")
     logout: LogoutResponse! @field(resolver: "Joselfonseca\\LighthouseGraphQLPassport\\GraphQL\\Mutations\\Logout@resolve")

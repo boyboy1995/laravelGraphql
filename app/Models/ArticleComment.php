@@ -16,8 +16,14 @@ class ArticleComment extends Model
      * @var array
      */
     protected $fillable = [
+        'content', 'article_id', 'user_id'
 
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(user::class);
+    }
 
 
     public function article(): BelongsTo

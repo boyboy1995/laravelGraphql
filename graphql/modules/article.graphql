@@ -3,10 +3,16 @@ extend type Query {
   articles: [Article!]! @paginate
 }
 
+extend type Mutation @guard(with: ["api"]) {
+    createArticle(input: ArticleInput! @spread): Article @create @inject(context: "user.id", name: "user_id")
+    createArticleComment(input: ArticleCommentInput! @spread): ArticleComment @create @inject(context: "user.id", name: "user_id")
+}
+
 type Article {
   id: ID!
   title: String!
-  content: String!
+  content: String
+  user_id: ID!
   author: User! @belongsTo(relation: "user")
   comments: [ArticleComment!]! @hasMany
 }
@@ -16,4 +22,20 @@ type ArticleComment {
   content: String!
   author: User! @belongsTo(relation: "user")
   article: Article! @belongsTo
+}
+
+input MessageInput {
+  content: String!
+  author: ID
+  article_id: ID!
+}
+
+input ArticleInput {
+    title: String! @rules(apply: ["required", "min:2"])
+    content: String! @rules(apply: ["required", "min:12"])
+}
+
+input ArticleCommentInput {
+    content: String! @rules(apply: ["required", "min:12"])
+    article_id: ID!
 }
